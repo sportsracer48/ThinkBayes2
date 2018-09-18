@@ -303,5 +303,4 @@ dependencies:
     - tables==3.4.3
     - thriftpy==0.3.9
     - tzlocal==1.5.1
-prefix: /home/downey/anaconda3
 
