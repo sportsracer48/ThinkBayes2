@@ -1,0 +1,731 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{homework4}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Think Bayes}\label{think-bayes}
+
+This notebook presents example code and exercise solutions for Think
+Bayes.
+
+Copyright 2016 Allen B. Downey
+
+MIT License: https://opensource.org/licenses/MIT
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Configure Jupyter so figures appear in the notebook}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{c+c1}{\PYZsh{} Configure Jupyter to display the assigned value after an assignment}
+        \PY{o}{\PYZpc{}}\PY{k}{config} InteractiveShell.ast\PYZus{}node\PYZus{}interactivity=\PYZsq{}last\PYZus{}expr\PYZus{}or\PYZus{}assign\PYZsq{}
+        
+        \PY{c+c1}{\PYZsh{} import classes from thinkbayes2}
+        \PY{k+kn}{import} \PY{n+nn}{thinkbayes2} \PY{k}{as} \PY{n+nn}{tb}
+        \PY{k+kn}{from} \PY{n+nn}{thinkbayes2} \PY{k}{import} \PY{n}{Suite}\PY{p}{,} \PY{n}{Joint}\PY{p}{,} \PY{n}{Pmf}
+        
+        \PY{k+kn}{import} \PY{n+nn}{thinkplot} \PY{k}{as} \PY{n+nn}{tp}
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{norm}\PY{p}{,}\PY{n}{binom}
+\end{Verbatim}
+
+
+    \section{The Height Problem II}\label{the-height-problem-ii}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{dist\PYZus{}height} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{male}\PY{o}{=}\PY{n}{norm}\PY{p}{(}\PY{l+m+mi}{178}\PY{p}{,} \PY{l+m+mf}{7.7}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{female}\PY{o}{=}\PY{n}{norm}\PY{p}{(}\PY{l+m+mi}{163}\PY{p}{,} \PY{l+m+mf}{7.3}\PY{p}{)}\PY{p}{)}
+        \PY{n}{hs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{130}\PY{p}{,} \PY{l+m+mi}{210}\PY{p}{)}\PY{p}{;}
+        \PY{n}{ps} \PY{o}{=} \PY{n}{dist\PYZus{}height}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{hs}\PY{p}{)}\PY{p}{;}
+        \PY{n}{male} \PY{o}{=} \PY{n}{Pmf}\PY{p}{(}\PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{hs}\PY{p}{,} \PY{n}{ps}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{ps} \PY{o}{=} \PY{n}{dist\PYZus{}height}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{hs}\PY{p}{)}\PY{p}{;}
+        \PY{n}{female} \PY{o}{=} \PY{n}{Pmf}\PY{p}{(}\PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{hs}\PY{p}{,} \PY{n}{ps}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        
+        \PY{n}{h}\PY{o}{=}\PY{n}{tb}\PY{o}{.}\PY{n}{MakeMixture}\PY{p}{(}\PY{n}{Pmf}\PY{p}{(}\PY{p}{[}\PY{n}{male}\PY{p}{,}\PY{n}{female}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        
+        \PY{k}{class} \PY{n+nc}{Taller}\PY{p}{(}\PY{n}{Suite}\PY{p}{,} \PY{n}{Joint}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{Likelihood}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{hypo}\PY{p}{)}\PY{p}{:}
+                \PY{n}{ha}\PY{p}{,}\PY{n}{hb}\PY{o}{=}\PY{n}{hypo}
+                \PY{k}{if} \PY{n}{data}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                    \PY{k}{return} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{ha}\PY{o}{\PYZgt{}}\PY{n}{hb} \PY{k}{else} \PY{l+m+mi}{0}
+                \PY{k}{elif} \PY{n}{data}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                    \PY{k}{return} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{hb}\PY{o}{\PYZgt{}}\PY{n}{ha} \PY{k}{else} \PY{l+m+mi}{0}
+        
+        \PY{n}{prior} \PY{o}{=} \PY{n}{Taller}\PY{p}{(}\PY{n}{tb}\PY{o}{.}\PY{n}{MakeJoint}\PY{p}{(}\PY{n}{h}\PY{p}{,}\PY{n}{h}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{prior}\PY{o}{.}\PY{n}{Update}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{:}
+            \PY{n}{prior} \PY{o}{=} \PY{n}{Taller}\PY{p}{(}\PY{n}{tb}\PY{o}{.}\PY{n}{MakeJoint}\PY{p}{(}\PY{n}{prior}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{n}{h}\PY{p}{)}\PY{p}{)}
+            \PY{n}{prior}\PY{o}{.}\PY{n}{Update}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        
+        \PY{n}{tp}\PY{o}{.}\PY{n}{Pdf}\PY{p}{(}\PY{n}{prior}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Their height is about }\PY{l+s+si}{\PYZpc{}.0f}\PY{l+s+s2}{ cm}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{prior}.Marginal(0).Mean())
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{It}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s between }\PY{l+s+si}{\PYZpc{}.0f}\PY{l+s+s2}{ and }\PY{l+s+si}{\PYZpc{}.0f}\PY{l+s+s2}{ (90}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{ confidence)}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{prior}.Marginal(0).CredibleInterval())
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Their height is about 182 cm
+It's between 176 and 190 (90\% confidence)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{class} \PY{n+nc}{Sex}\PY{p}{(}\PY{n}{Suite}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{Likelihood}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{hypo}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n}{dist\PYZus{}height}\PY{p}{[}\PY{n}{hypo}\PY{p}{]}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{;}
+        
+        \PY{n}{sexes} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{Sex}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{prior}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{n}{h}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{h} \PY{o+ow}{in} \PY{n}{hs}\PY{p}{]}\PY{p}{;}
+        \PY{k}{for} \PY{n}{sex}\PY{p}{,}\PY{n}{h}\PY{p}{,}\PY{n}{p} \PY{o+ow}{in} \PY{n}{sexes}\PY{p}{:}
+            \PY{n}{sex}\PY{o}{.}\PY{n}{Update}\PY{p}{(}\PY{n}{h}\PY{p}{)}
+        
+        \PY{n}{metaPmf} \PY{o}{=} \PY{n}{Pmf}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{pmf}\PY{p}{:}\PY{n}{p} \PY{k}{for} \PY{n}{pmf}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{p} \PY{o+ow}{in} \PY{n}{sexes}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{;}
+        
+        \PY{n}{sex} \PY{o}{=} \PY{n}{tb}\PY{o}{.}\PY{n}{MakeMixture}\PY{p}{(}\PY{n}{metaPmf}\PY{p}{)}\PY{p}{;}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{There is a }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s2}{ chance that they are male}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{sex}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There is a 93.5 chance that they are male
+
+    \end{Verbatim}
+
+    \section{The Lincon Index Problem}\label{the-lincon-index-problem}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{class} \PY{n+nc}{BugHunt}\PY{p}{(}\PY{n}{Suite}\PY{p}{,} \PY{n}{Joint}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{Likelihood}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{hypo}\PY{p}{)}\PY{p}{:}
+                \PY{n}{p1}\PY{p}{,}\PY{n}{p2}\PY{p}{,}\PY{n}{n} \PY{o}{=} \PY{n}{hypo}
+                \PY{n}{k1}\PY{p}{,}\PY{n}{k2}\PY{p}{,}\PY{n}{c} \PY{o}{=} \PY{n}{data}
+                
+                \PY{k}{if} \PY{n}{k1}\PY{o}{\PYZgt{}}\PY{n}{n} \PY{o+ow}{or} \PY{n}{k2}\PY{o}{\PYZgt{}}\PY{n}{n}\PY{p}{:}
+                    \PY{k}{return} \PY{l+m+mi}{0}
+                
+                \PY{n}{l1} \PY{o}{=} \PY{n}{binom}\PY{p}{(}\PY{n}{n}\PY{p}{,}   \PY{n}{p1}\PY{p}{)}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{k1}\PY{p}{)}
+                \PY{n}{l2} \PY{o}{=} \PY{n}{binom}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{n}{k1}\PY{p}{,}\PY{n}{p2}\PY{p}{)}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{k2}\PY{o}{\PYZhy{}}\PY{n}{c}\PY{p}{)}
+                \PY{n}{l3} \PY{o}{=} \PY{n}{binom}\PY{p}{(}\PY{n}{k1}\PY{p}{,}  \PY{n}{p2}\PY{p}{)}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                
+                \PY{k}{return} \PY{n}{l1}\PY{o}{*}\PY{n}{l2}\PY{o}{*}\PY{n}{l3}
+            
+        \PY{n}{ps} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}
+        
+        \PY{n}{k1}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{;}
+        \PY{n}{k2}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{;}
+        \PY{n}{c}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{;}
+        \PY{n}{minBugs} \PY{o}{=} \PY{n}{k1}\PY{o}{+}\PY{n}{k2}\PY{o}{\PYZhy{}}\PY{n}{c}\PY{p}{;}
+        
+        \PY{n}{ns} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{n}{minBugs}\PY{p}{,}\PY{l+m+mi}{250}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{prior} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{p1}\PY{p}{,}\PY{n}{p2}\PY{p}{,}\PY{n}{n}\PY{p}{)} \PY{k}{for} \PY{n}{p1} \PY{o+ow}{in} \PY{n}{ps} \PY{k}{for} \PY{n}{p2} \PY{o+ow}{in} \PY{n}{ps} \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{ns}\PY{p}{]}\PY{p}{;}
+        
+        \PY{c+c1}{\PYZsh{}print(prior)}
+        
+        \PY{n}{bugs} \PY{o}{=} \PY{n}{BugHunt}\PY{p}{(}\PY{n}{prior}\PY{p}{)}\PY{p}{;}
+        \PY{n}{bugs}\PY{o}{.}\PY{n}{Update}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        
+        \PY{n}{tp}\PY{o}{.}\PY{n}{Pmf}\PY{p}{(}\PY{n}{bugs}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I estimate the mean to be }\PY{l+s+si}{\PYZpc{}.0f}\PY{l+s+s2}{, }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{and the Lincoln index agrees it should be }\PY{l+s+si}{\PYZpc{}.0f}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{bugs}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{Mean}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{k1}\PY{o}{*}\PY{n}{k2}\PY{o}{/}\PY{n}{c}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{tp}\PY{o}{.}\PY{n}{Pmf}\PY{p}{(}\PY{n}{bugs}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n}{tp}\PY{o}{.}\PY{n}{Pmf}\PY{p}{(}\PY{n}{bugs}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{tp}\PY{o}{.}\PY{n}{decorate}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bug finding probability of testers}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{bugs}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{Mean}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{bugs}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{Mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+I estimate the mean to be 100, 
+and the Lincoln index agrees it should be 100.
+0.2347888463387506 0.17882134535064498
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    However, I don't like that chunky graph. I had to use big chunks to get
+it to run on my laptop. I'm gonna do this in mathematica with MCMC.
+
+\begin{figure}
+\centering
+\includegraphics{https://i.imgur.com/i3uUN0R.png}
+\caption{}
+\end{figure}
+
+That's better. This gives the mean for the number of bugs at 112, and
+the mean for the testers' bug finding probabilities at 22.6\% and 12.3\%
+respectively. I used the Metropolis-Hasting's algorithm. Here's the
+source code:
+
+\begin{verbatim}
+l[n_, p_, k_] := PDF[BinomialDistribution[n, p], k]
+k1 = 20;
+k2 = 15;
+c = 3;
+MinN = k1 + k2 - c;
+f[p1_, p2_, n_] := l[n, p1, k1]*l[n - k1, p2, k2 - c]*l[k1, p2, c]
+un = UniformDistribution[{0, 1}];
+normP = NormalDistribution[0, .05];
+normN = NormalDistribution[0, 5];
+Clamp[p_] := Min[Max[p, 0], 1]
+ClampN[n_] := Max[Round[n], MinN]
+step[{p1_, p2_, n_}] := With[
+  {
+   u = RandomVariate[un],
+   p1p = Clamp[RandomVariate[normP] + p1],
+   p2p = Clamp[RandomVariate[normP] + p2],
+   np = ClampN[RandomVariate[normN] + n]
+   },
+  If[u <= f[p1p, p2p, np]/f[p1, p2, n], {p1p, p2p, np}, {p1, p2, n}]
+  ]
+samples = NestList[step, {.23, .17, 100}, 1000000];
+{p1M, p2M, nM} = Transpose@samples;
+\end{verbatim}
+
+    \section{The Skeet Problem}\label{the-skeet-problem}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k}{class} \PY{n+nc}{Shooter}\PY{p}{(}\PY{n}{Suite}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{Likelihood}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{hypo}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{p}     \PY{o}{=} \PY{n}{hypo}\PY{p}{;}
+                 \PY{n}{n}\PY{p}{,}\PY{n}{k}   \PY{o}{=} \PY{n}{data}\PY{p}{;}
+                 \PY{k}{return} \PY{n}{binom}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{p}\PY{p}{)}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{;}
+             
+         \PY{n}{ps} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{;}
+         \PY{n}{R} \PY{o}{=} \PY{n}{Shooter}\PY{p}{(}\PY{n}{ps}\PY{p}{)}\PY{p}{;}
+         \PY{n}{M} \PY{o}{=} \PY{n}{Shooter}\PY{p}{(}\PY{n}{ps}\PY{p}{)}\PY{p}{;}
+         \PY{n}{R}\PY{o}{.}\PY{n}{Update}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{25}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{15}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{M}\PY{o}{.}\PY{n}{Update}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{25}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{15}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         
+         \PY{n}{tp}\PY{o}{.}\PY{n}{Pdf}\PY{p}{(}\PY{n}{R}\PY{p}{)}
+         \PY{n}{tp}\PY{o}{.}\PY{n}{Pdf}\PY{p}{(}\PY{n}{M}\PY{p}{)}
+         
+         \PY{n}{joint} \PY{o}{=} \PY{n}{tb}\PY{o}{.}\PY{n}{MakeJoint}\PY{p}{(}\PY{n}{R}\PY{p}{,}\PY{n}{M}\PY{p}{)}\PY{p}{;}
+         \PY{n}{pRBetter} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;}
+         \PY{k}{for} \PY{p}{(}\PY{n}{pR}\PY{p}{,}\PY{n}{pM}\PY{p}{)}\PY{p}{,}\PY{n}{p} \PY{o+ow}{in} \PY{n}{joint}\PY{o}{.}\PY{n}{Items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{pR}\PY{o}{\PYZgt{}}\PY{n}{pM}\PY{p}{:}
+                 \PY{n}{pRBetter} \PY{o}{+}\PY{o}{=} \PY{n}{p}\PY{p}{;}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{There is a }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{ chance that Rhode is better. That}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s a Bayes factor of }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{pRBetter}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{pRBetter}\PY{o}{/}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{win} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;}
+         \PY{n}{tie} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;}
+         \PY{k}{for} \PY{p}{(}\PY{n}{pR}\PY{p}{,}\PY{n}{pM}\PY{p}{)}\PY{p}{,}\PY{n}{p} \PY{o+ow}{in} \PY{n}{joint}\PY{o}{.}\PY{n}{Items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{RPMF}\PY{o}{=}\PY{n}{tb}\PY{o}{.}\PY{n}{MakeBinomialPmf}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{n}{pR}\PY{p}{)}
+             \PY{n}{MPMF}\PY{o}{=}\PY{n}{tb}\PY{o}{.}\PY{n}{MakeBinomialPmf}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{n}{pM}\PY{p}{)}
+             \PY{k}{for} \PY{n}{nR}\PY{p}{,}\PY{n}{pnR} \PY{o+ow}{in} \PY{n}{RPMF}\PY{o}{.}\PY{n}{Items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{nM}\PY{p}{,} \PY{n}{pnM} \PY{o+ow}{in} \PY{n}{MPMF}\PY{o}{.}\PY{n}{Items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if}\PY{p}{(}\PY{n}{nR}\PY{o}{\PYZgt{}}\PY{n}{nM}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{win} \PY{o}{+}\PY{o}{=} \PY{n}{p}\PY{o}{*}\PY{n}{pnR}\PY{o}{*}\PY{n}{pnM}
+                     \PY{k}{elif}\PY{p}{(}\PY{n}{nR}\PY{o}{==}\PY{n}{nM}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{tie} \PY{o}{+}\PY{o}{=} \PY{n}{p}\PY{o}{*}\PY{n}{pnR}\PY{o}{*}\PY{n}{pnM}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There is a 58.3\% chance that Rhode is better. That's a Bayes factor of 1.17.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{There is a }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{ chance that Rhode would win a rematch without a tiebreaker, and a }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{ chance that they would tie.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{win}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{tie}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There is a 52.0\% chance that Rhode would win a rematch without a tiebreaker, and a 8.9\% chance that they would tie.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{wint} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;}
+         \PY{n}{tiet} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;}
+         \PY{k}{for} \PY{p}{(}\PY{n}{pR}\PY{p}{,}\PY{n}{pM}\PY{p}{)}\PY{p}{,}\PY{n}{p} \PY{o+ow}{in} \PY{n}{joint}\PY{o}{.}\PY{n}{Items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{RPMF}\PY{o}{=}\PY{n}{tb}\PY{o}{.}\PY{n}{MakeBinomialPmf}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{pR}\PY{p}{)}
+             \PY{n}{MPMF}\PY{o}{=}\PY{n}{tb}\PY{o}{.}\PY{n}{MakeBinomialPmf}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{pM}\PY{p}{)}
+             \PY{k}{for} \PY{n}{nR}\PY{p}{,}\PY{n}{pnR} \PY{o+ow}{in} \PY{n}{RPMF}\PY{o}{.}\PY{n}{Items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{nM}\PY{p}{,} \PY{n}{pnM} \PY{o+ow}{in} \PY{n}{MPMF}\PY{o}{.}\PY{n}{Items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if}\PY{p}{(}\PY{n}{nR}\PY{o}{\PYZgt{}}\PY{n}{nM}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{wint} \PY{o}{+}\PY{o}{=} \PY{n}{p}\PY{o}{*}\PY{n}{pnR}\PY{o}{*}\PY{n}{pnM}
+                     \PY{k}{elif}\PY{p}{(}\PY{n}{nR}\PY{o}{==}\PY{n}{nM}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{tiet} \PY{o}{+}\PY{o}{=} \PY{n}{p}\PY{o}{*}\PY{n}{pnR}\PY{o}{*}\PY{n}{pnM}
+                         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{In each round of sudden death there is a }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{ chance that Rhode would win, }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{and a }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{ chance that they would tie again.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{wint}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{tiet}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+In each round of sudden death there is a 32.5\% chance that Rhode would win, 
+and a 39.3\% chance that they would tie again.
+
+    \end{Verbatim}
+
+    To find the total probability of Rhode winning a rematch, we need to sum
+an infinite series. Again, it was best to switch to mathematica, so
+here's my code to sum that infinite series:
+
+\begin{verbatim}
+ {w, t, wt, tt} = {0.5202329045549506, 0.08924107056052635, .3254421768707451, 0.3926984126984103}
+ w + t*Sum[wt*tt^n, {n, 0, Infinity}]
+\end{verbatim}
+
+Which gives Rhode a total of a 56.8\% chance of winning after an
+arbitrary number of ties. As a reality check I also calculated the
+probability of Meng winning after arbitrary ties with
+
+\begin{verbatim}
+ (1 - w - t) + t*Sum[(1 - wt - tt)*tt^n, {n, 0, Infinity}]
+\end{verbatim}
+
+And she gets a 43.2\% chance of winning. Those add up to one, which is
+good! They have no chance of tying forever.
+
+    \section{The Social Desirability
+Problem}\label{the-social-desirability-problem}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{k}{class} \PY{n+nc}{Athiests}\PY{p}{(}\PY{n}{Suite}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{Likelihood}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{hypo}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{nAthiests}\PY{o}{=}\PY{n}{hypo}
+                 \PY{n}{nYes}\PY{o}{=}\PY{n}{data}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{nAthiests}\PY{o}{\PYZgt{}}\PY{n}{nYes}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{0}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{binom}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{\PYZhy{}}\PY{n}{nAthiests}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{nYes}\PY{o}{\PYZhy{}}\PY{n}{nAthiests}\PY{p}{)}
+                 
+         \PY{n}{s}\PY{o}{=}\PY{n}{Athiests}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{101}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{s}\PY{o}{.}\PY{n}{Update}\PY{p}{(}\PY{l+m+mi}{80}\PY{p}{)}\PY{p}{;}
+         \PY{n}{tp}\PY{o}{.}\PY{n}{Pdf}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{There are between }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ and }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ athiests surveyed (90}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{ confidence).}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{s}.CredibleInterval())
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The mean is }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{s}.Mean())
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are between 48 and 69 athiests surveyed (90\% confidence).
+The mean is 59.0
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{The Sleeping Beauty Problem}\label{the-sleeping-beauty-problem}
+
+I've gotta go with 1/2 on this one. The only datum that Sleeping Beauty
+has is that she was awoken, which she already know would happen. Hence
+the posteriors are the same as the priors, where the coin has a 50\%
+chance landing heads.
+
+I don't think that the 1/3 argument on wikipedia is even credible, since
+it claims that P(Tails \textbar{} Monday) = P(Monday \textbar{} Tails),
+but this assertion fails to account for the prior probabilities. I
+demonstrate this below with a Bayseian update, which shows that P(Tails
+\textbar{} Monday)=1/5 and P(Monday \textbar{} Tails)=1/3. The wikipedia
+article cavalierly switches between P(A and B) and P(A\textbar{}B) but
+those are not the same. In fact, that's the point of conditional
+probabilty.
+
+Note that the likelihoods for P(Monday\textbar{}Tails) and
+P(Tails\textbar{}Monday) are the same, but they still lead to different
+posteriors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{heads} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{heads}\PY{l+s+s1}{\PYZsq{}}\PY{p}{;}
+         \PY{n}{tails} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tails}\PY{l+s+s1}{\PYZsq{}}\PY{p}{;}
+         \PY{n}{tuesday} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tuesday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{;}
+         \PY{n}{monday} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{monday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{;}
+         
+         \PY{k}{class} \PY{n+nc}{Coin}\PY{p}{(}\PY{n}{Suite}\PY{p}{,} \PY{n}{Joint}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{Likelihood}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{hypo}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{coin}\PY{p}{,}\PY{n}{day} \PY{o}{=} \PY{n}{hypo}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{data} \PY{o}{==} \PY{n}{monday}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if}\PY{p}{(}\PY{n}{day} \PY{o}{==} \PY{n}{tuesday}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{return} \PY{l+m+mi}{0}\PY{c+c1}{\PYZsh{}no chance of this}
+                     \PY{k}{if}\PY{p}{(}\PY{n}{coin} \PY{o}{==} \PY{n}{heads}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{return} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{}the probability of it being monday with heads is 1}
+                     \PY{k}{if}\PY{p}{(}\PY{n}{coin} \PY{o}{==} \PY{n}{tails}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{return} \PY{l+m+mf}{0.5}\PY{c+c1}{\PYZsh{}whereas when waking up with tails it could have been tuesday}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{data} \PY{o}{==} \PY{n}{tails}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if}\PY{p}{(}\PY{n}{coin} \PY{o}{==} \PY{n}{heads}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{return} \PY{l+m+mi}{0}\PY{c+c1}{\PYZsh{}no chance of this}
+                     \PY{k}{if}\PY{p}{(}\PY{n}{day} \PY{o}{==} \PY{n}{monday}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{return} \PY{l+m+mf}{0.5}\PY{c+c1}{\PYZsh{}could have been heads or tails}
+                     \PY{k}{if}\PY{p}{(}\PY{n}{day} \PY{o}{==} \PY{n}{tuesday}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{return} \PY{l+m+mi}{1}\PY{c+c1}{\PYZsh{}can only be tails on tuesday}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{1}
+                     
+                 
+         
+         \PY{c+c1}{\PYZsh{}Here\PYZsq{}s how I\PYZsq{}m sturcturing my priors. First there is a coin flip, then I\PYZsq{}m modeling the lack of information}
+         \PY{c+c1}{\PYZsh{}about what day it is (in the tails case) as it being equally probable that Sleeping Beauty is awoken on Monday}
+         \PY{c+c1}{\PYZsh{}or Tuesday.}
+         
+         \PY{c+c1}{\PYZsh{}             coin flip}
+         \PY{c+c1}{\PYZsh{}                 |}
+         \PY{c+c1}{\PYZsh{}             \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{c+c1}{\PYZsh{}             |              |}
+         \PY{c+c1}{\PYZsh{}           heads(.5)      tails(.5)}
+         \PY{c+c1}{\PYZsh{}             |               |}
+         \PY{c+c1}{\PYZsh{}           Monday(.5)    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{c+c1}{\PYZsh{}                         |            |}
+         \PY{c+c1}{\PYZsh{}                     Monday(.25)   Tuesday(.25)}
+         
+         \PY{n}{coin} \PY{o}{=} \PY{n}{Coin}\PY{p}{(}\PY{p}{\PYZob{}}\PY{p}{(}\PY{n}{heads}\PY{p}{,}\PY{n}{tuesday}\PY{p}{)}\PY{p}{:}\PY{l+m+mi}{0} 
+                      \PY{p}{,}\PY{p}{(}\PY{n}{heads}\PY{p}{,}\PY{n}{monday}\PY{p}{)}\PY{p}{:}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} 
+                      \PY{p}{(}\PY{n}{tails}\PY{p}{,}\PY{n}{tuesday}\PY{p}{)}\PY{p}{:}\PY{o}{.}\PY{l+m+mi}{25}\PY{p}{,}
+                      \PY{p}{(}\PY{n}{tails}\PY{p}{,}\PY{n}{monday}\PY{p}{)}\PY{p}{:}\PY{o}{.}\PY{l+m+mi}{25}
+                     \PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{coin}\PY{o}{.}\PY{n}{Update}\PY{p}{(}\PY{n}{monday}\PY{p}{)}
+         \PY{n}{tp}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{coin}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Probability that the coin landed tails given that it}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s Monday is: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{*}\PY{n}{coin}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{n}{tails}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Probability that the coin landed tails given that it's Monday is: 20.00\%
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{coin} \PY{o}{=} \PY{n}{Coin}\PY{p}{(}\PY{p}{\PYZob{}}\PY{p}{(}\PY{n}{heads}\PY{p}{,}\PY{n}{tuesday}\PY{p}{)}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{(}\PY{n}{heads}\PY{p}{,}\PY{n}{monday}\PY{p}{)}\PY{p}{:}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{p}{(}\PY{n}{tails}\PY{p}{,}\PY{n}{tuesday}\PY{p}{)}\PY{p}{:}\PY{o}{.}\PY{l+m+mi}{25}\PY{p}{,}\PY{p}{(}\PY{n}{tails}\PY{p}{,}\PY{n}{monday}\PY{p}{)}\PY{p}{:}\PY{o}{.}\PY{l+m+mi}{25}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{coin}\PY{o}{.}\PY{n}{Update}\PY{p}{(}\PY{n}{tails}\PY{p}{)}
+         \PY{n}{tp}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{coin}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Probability that it}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s Monday given that the coin landed tails is: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{*}\PY{n}{coin}\PY{o}{.}\PY{n}{Marginal}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{n}{monday}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Probability that it's Monday given that the coin landed tails is: 33.33\%
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Project Idea}\label{project-idea}
+
+I want to do a project on belief propagation in Bayesian networks.
+Here's a link to a relevant wikipedia article:
+https://en.wikipedia.org/wiki/Belief\_propagation
+
+This may look a bit more like a complexity project then a CompBayes
+project, but oh well, CompBayes wasn't offered this semester.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
